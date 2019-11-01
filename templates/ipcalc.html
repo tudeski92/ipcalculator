@@ -3,10 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <title>IP Calculator</title>
+
+    <style>
+        td {
+        padding: 5px;
+        }
+
+        table {
+        margin: 5px;
+        margin-left: 0px;
+        border-top: 2px solid black;
+        border-bottom: 2px solid black;
+        }
+
+        .boxy {
+        width: 100px;
+        height: 100px;
+        display: inline-block;
+        border: 2px solid black;
+        background-size: cover;
+        background-position: center;
+        }
+
+        .box-1 {
+        background-image: url("../static/images/dog-1.jpg");
+        }
+
+        .box-2 {
+        background-image: url("../static/images/dog-2.jpg");
+                }
+
+        .box-3 {
+        background-image: url("../static/images/dog-3.jpg");
+        }
+
+        .box-4 {
+        background-image: url("../static/images/dog-4.jpg");
+        }
+
+    </style>
 </head>
 <body>
 
 <dev class="main">
+    <div class="boxy box-1"></div>
+    <div class="boxy box-2"></div>
+    <div class="boxy box-3"></div>
+    <div class="boxy box-4"></div>
+
     <h2>IP Calculator</h2>
     <form method = "POST" action="">
         <dev class="input_form">
@@ -18,19 +62,23 @@
             <input type="submit" name="submit_button" value="Random">
             <table>
                 <tr>
-                    <td>IP address</td>
+                    <td>IP address:</td>
                     <td>{{ipaddress}}</td>
                 </tr>
                 <tr>
-                    <td>Subnet address</td>
+                    <td>Subnet address:</td>
                     <td>{{subnet}}</td>
                 </tr>
                 <tr>
-                    <td>Subnet mask</td>
+                    <td>Subnet mask:</td>
                     <td>{{mask}}</td>
                 </tr>
                 <tr>
-                    <td>Hosts number</td>
+                    <td>Broadcast address:</td>
+                    <td>{{broadcast}}</td>
+                </tr>
+                <tr>
+                    <td>Hosts number:</td>
                     <td>{{hosts}}</td>
                 </tr>
             </table>
