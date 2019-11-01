@@ -1,5 +1,5 @@
 from flask import Flask, url_for, render_template, request, redirect
-from random import randint
+from random import randint, shuffle
 import logging
 import numpy
 
@@ -95,10 +95,10 @@ def calculate_subnet_broadcast_and_hosts(address):
         logic_and_str = [str(element) for element in logic_and]
         subnet.append(''.join(logic_and_str))
 
-    broadcast = calculate_broadcast('.'.join(subnet), mask_num)
+    broadcast, bin_broadcast = calculate_broadcast('.'.join(subnet), mask_num)
     subnet_dec = [str(bin_to_dec(element)) for element in subnet]
     mask_dec = [str(bin_to_dec(element)) for element in bin_mask_list]
-    return '.'.join(subnet_dec), '.'.join(mask_dec), broadcast, host_number
+    return '.'.join(subnet_dec), '.'.join(mask_dec), broadcast, host_number, '.'.join(subnet), bin_mask, bin_ip, '.'.join(bin_broadcast), mask_num
 
 
 def calculate_broadcast(subnet_ip, mask_num):
@@ -111,7 +111,7 @@ def calculate_broadcast(subnet_ip, mask_num):
             broadcast_list.append('1')
     broadcast_address_binary = divide_to_octets(''.join(broadcast_list)).split('.')
     broadcast_address_dec = '.'.join([str(bin_to_dec(element)) for element in broadcast_address_binary ])
-    return broadcast_address_dec
+    return broadcast_address_dec, broadcast_address_binary
 
 def random_ip_address():
     mask_num = "/" + str(randint(1, 32))
@@ -123,18 +123,23 @@ def random_ip_address():
 
 @app.route("/", methods = ['POST', 'GET'])
 def index():
+    dogs = ['dog-1.jpg', 'dog-2.jpg', 'dog-3.jpg', 'dog-4.jpg']
+    shuffle(dogs)
     randomip = random_ip_address()
     if request.method == 'POST':
         if request.form['submit_button'] == 'Random':
-            return render_template("ipcalc.html", randomip=randomip)
+            shuffle(dogs)
+            return render_template("ipcalc.html", randomip=randomip, dogs=dogs)
         elif request.form['submit_button'] == 'Calculate':
+            shuffle(dogs)
             ipaddress = request.form['ipaddress']
-            subnet, mask, broadcast, hosts = calculate_subnet_broadcast_and_hosts(str(ipaddress))
+            subnet, mask, broadcast, hosts, bin_subnet, bin_mask, bin_ip, bin_broadcast, mask_num = \
+                calculate_subnet_broadcast_and_hosts(str(ipaddress))
             return render_template("ipcalc.html", ipaddress=ipaddress, subnet=subnet, mask=mask, broadcast=broadcast,
-                                   hosts=hosts)
+                                   hosts=hosts, dogs=dogs, binsubnet=bin_subnet, binmask=bin_mask,
+                                   binip=bin_ip, binbroadcast=bin_broadcast, masknum=mask_num)
 
-    return render_template("ipcalc.html")
-
+    return render_template("ipcalc.html", dogs=dogs)
 
 if __name__ == "__main__":
     app.run(debug=True)

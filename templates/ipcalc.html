@@ -26,19 +26,19 @@
         }
 
         .box-1 {
-        background-image: url("../static/images/dog-1.jpg");
+        background-image: url("../static/images/{{dogs[0]}}");
         }
 
         .box-2 {
-        background-image: url("../static/images/dog-2.jpg");
+        background-image: url("../static/images/{{dogs[1]}}");
                 }
 
         .box-3 {
-        background-image: url("../static/images/dog-3.jpg");
+        background-image: url("../static/images/{{dogs[2]}}");
         }
 
         .box-4 {
-        background-image: url("../static/images/dog-4.jpg");
+        background-image: url("../static/images/{{dogs[3]}}");
         }
 
     </style>
@@ -64,22 +64,30 @@
                 <tr>
                     <td>IP address:</td>
                     <td>{{ipaddress}}</td>
+                    <td>{{binip}}</td>
                 </tr>
                 <tr>
                     <td>Subnet address:</td>
                     <td>{{subnet}}</td>
+                    <td>{{binsubnet}}</td>
                 </tr>
                 <tr>
                     <td>Subnet mask:</td>
                     <td>{{mask}}</td>
+                    <td>{{binmask}}</td>
                 </tr>
                 <tr>
                     <td>Broadcast address:</td>
                     <td>{{broadcast}}</td>
+                    <td>{{binbroadcast}}</td>
                 </tr>
                 <tr>
                     <td>Hosts number:</td>
-                    <td>{{hosts}}</td>
+                    {% if masknum and masknum != '32'%}
+                    <td>2<sup>32 - {{masknum }}</sup> - 2 = {{hosts}}</td>
+                    {% elif masknum and masknum == '32' %}
+                    <td>2<sup>32 - {{masknum}}</sup> - 2 = 0</td>
+                    {% endif %}
                 </tr>
             </table>
             <input type="submit" name="submit_button" value="Calculate">
