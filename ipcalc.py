@@ -86,16 +86,16 @@ def divide_to_octets(zero_one_address):
 def insert_separator_line(bin_address, mask_num):
     bin_address_splitted = bin_address.split('.')
     if mask_num <= 8:
-        bin_address_splitted[0] = bin_address_splitted[0][0:mask_num] + '|' + bin_address_splitted[0][mask_num:]
+        bin_address_splitted[0] = bin_address_splitted[0][0:mask_num] + ' | ' + bin_address_splitted[0][mask_num:]
     elif 8 < mask_num <= 16:
         mask_num = (mask_num % 8) if mask_num != 16 else 8
-        bin_address_splitted[1] = bin_address_splitted[1][0:mask_num] + "|" + bin_address_splitted[1][mask_num:]
+        bin_address_splitted[1] = bin_address_splitted[1][0:mask_num] + " | " + bin_address_splitted[1][mask_num:]
     elif 16 < mask_num <= 24:
         mask_num = (mask_num % 8) if mask_num != 24 else 8
-        bin_address_splitted[2] = bin_address_splitted[2][0:mask_num] + "|" + bin_address_splitted[2][mask_num:]
+        bin_address_splitted[2] = bin_address_splitted[2][0:mask_num] + " | " + bin_address_splitted[2][mask_num:]
     else:
         mask_num = (mask_num % 8) if mask_num != 32 else 8
-        bin_address_splitted[3] = bin_address_splitted[3][0:mask_num] + "|" + bin_address_splitted[3][mask_num:]
+        bin_address_splitted[3] = bin_address_splitted[3][0:mask_num] + " | " + bin_address_splitted[3][mask_num:]
     return '.'.join(bin_address_splitted)
 
 

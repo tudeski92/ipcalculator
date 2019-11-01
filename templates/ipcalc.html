@@ -9,6 +9,7 @@
         padding: 5px;
         }
 
+        
         table {
         margin: 5px;
         margin-left: 0px;
@@ -46,6 +47,12 @@
         letter-spacing: 2px;
         }
 
+        .name {
+        font-weight: bold;
+        }
+
+
+
     </style>
 </head>
 <body>
@@ -67,27 +74,32 @@
             <input type="submit" name="submit_button" value="Random">
             <table>
                 <tr>
-                    <td>IP address:</td>
+                    <td></td>
+                    <th>Decimal</th>
+                    <th>Binary</th>
+                </tr>
+                <tr>
+                    <td class="name">IP address:</td>
                     <td>{{ipaddress}}</td>
                     <td class="binary">{{binip}}</td>
                 </tr>
                 <tr>
-                    <td>Subnet address:</td>
+                    <td class="name">Subnet address:</td>
                     <td>{{subnet}}</td>
                     <td class="binary">{{binsubnet}}</td>
                 </tr>
                 <tr>
-                    <td>Subnet mask:</td>
+                    <td class="name">Subnet mask:</td>
                     <td>{{mask}}</td>
                     <td class="binary">{{binmask}}</td>
                 </tr>
                 <tr>
-                    <td>Broadcast address:</td>
+                    <td class="name">Broadcast address:</td>
                     <td>{{broadcast}}</td>
                     <td class="binary">{{binbroadcast}}</td>
                 </tr>
                 <tr>
-                    <td>Hosts number:</td>
+                    <td class="name">Hosts number:</td>
                     {% if masknum and masknum != '32'%}
                     <td>2<sup>32 - {{masknum }}</sup> - 2 = {{hosts}}</td>
                     {% elif masknum and masknum == '32' %}
