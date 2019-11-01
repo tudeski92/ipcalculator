@@ -1,12 +1,18 @@
+"""
+IP Calculator app
+"""
+
 from flask import Flask, url_for, render_template, request, redirect
 from random import randint, shuffle
 import logging
 import numpy
 
+
 logging.basicConfig(format="%(asctime)s - %(message)s", level=logging.INFO)
 logger = logging.getLogger('root')
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'gshfkjgh1kj2hkj4hkj'
+
 
 def dec_to_bin(decimal):
     mylist = []
