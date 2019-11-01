@@ -41,6 +41,11 @@
         background-image: url("../static/images/{{dogs[3]}}");
         }
 
+        .binary {
+        font-family: Verdana;
+        letter-spacing: 2px;
+        }
+
     </style>
 </head>
 <body>
@@ -64,22 +69,22 @@
                 <tr>
                     <td>IP address:</td>
                     <td>{{ipaddress}}</td>
-                    <td>{{binip}}</td>
+                    <td class="binary">{{binip}}</td>
                 </tr>
                 <tr>
                     <td>Subnet address:</td>
                     <td>{{subnet}}</td>
-                    <td>{{binsubnet}}</td>
+                    <td class="binary">{{binsubnet}}</td>
                 </tr>
                 <tr>
                     <td>Subnet mask:</td>
                     <td>{{mask}}</td>
-                    <td>{{binmask}}</td>
+                    <td class="binary">{{binmask}}</td>
                 </tr>
                 <tr>
                     <td>Broadcast address:</td>
                     <td>{{broadcast}}</td>
-                    <td>{{binbroadcast}}</td>
+                    <td class="binary">{{binbroadcast}}</td>
                 </tr>
                 <tr>
                     <td>Hosts number:</td>

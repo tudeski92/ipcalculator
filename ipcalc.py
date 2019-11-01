@@ -73,9 +73,24 @@ def divide_to_octets(zero_one_address):
             mask_helper.append('.')
             helper = i
             counter = 0
-
     bin_mask = ''.join(mask_helper)
     return bin_mask
+
+
+def insert_separator_line(bin_address, mask_num):
+    bin_address_splitted = bin_address.split('.')
+    if mask_num <= 8:
+        bin_address_splitted[0] = bin_address_splitted[0][0:mask_num] + '|' + bin_address_splitted[0][mask_num:]
+    elif 8 < mask_num <= 16:
+        mask_num = (mask_num % 8) if mask_num != 16 else 8
+        bin_address_splitted[1] = bin_address_splitted[1][0:mask_num] + "|" + bin_address_splitted[1][mask_num:]
+    elif 16 < mask_num <= 24:
+        mask_num = (mask_num % 8) if mask_num != 24 else 8
+        bin_address_splitted[2] = bin_address_splitted[2][0:mask_num] + "|" + bin_address_splitted[2][mask_num:]
+    else:
+        mask_num = (mask_num % 8) if mask_num != 32 else 8
+        bin_address_splitted[3] = bin_address_splitted[3][0:mask_num] + "|" + bin_address_splitted[3][mask_num:]
+    return '.'.join(bin_address_splitted)
 
 
 def calculate_subnet_broadcast_and_hosts(address):
@@ -94,11 +109,14 @@ def calculate_subnet_broadcast_and_hosts(address):
         logic_and = list(ip_octet_list & mask_octet_list)
         logic_and_str = [str(element) for element in logic_and]
         subnet.append(''.join(logic_and_str))
-
     broadcast, bin_broadcast = calculate_broadcast('.'.join(subnet), mask_num)
     subnet_dec = [str(bin_to_dec(element)) for element in subnet]
     mask_dec = [str(bin_to_dec(element)) for element in bin_mask_list]
-    return '.'.join(subnet_dec), '.'.join(mask_dec), broadcast, host_number, '.'.join(subnet), bin_mask, bin_ip, '.'.join(bin_broadcast), mask_num
+    bin_mask = insert_separator_line(bin_mask, int(mask_num))
+    bin_subnet = insert_separator_line('.'.join(subnet), int(mask_num))
+    bin_broadcast = insert_separator_line('.'.join(bin_broadcast), int(mask_num))
+    bin_ip = insert_separator_line(bin_ip, int(mask_num))
+    return '.'.join(subnet_dec), '.'.join(mask_dec), broadcast, host_number, bin_subnet, bin_mask, bin_ip, bin_broadcast, mask_num
 
 
 def calculate_broadcast(subnet_ip, mask_num):
@@ -113,12 +131,12 @@ def calculate_broadcast(subnet_ip, mask_num):
     broadcast_address_dec = '.'.join([str(bin_to_dec(element)) for element in broadcast_address_binary ])
     return broadcast_address_dec, broadcast_address_binary
 
+
 def random_ip_address():
     mask_num = "/" + str(randint(1, 32))
     ip_address_list = [str(randint(1, 255)), str(randint(0, 255)), str(randint(0, 255)), str(randint(0, 255))]
     ip_address = '.'.join(ip_address_list) + mask_num
     return ip_address
-
 
 
 @app.route("/", methods = ['POST', 'GET'])
@@ -140,6 +158,7 @@ def index():
                                    binip=bin_ip, binbroadcast=bin_broadcast, masknum=mask_num)
 
     return render_template("ipcalc.html", dogs=dogs)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
