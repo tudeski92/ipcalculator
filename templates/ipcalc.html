@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IP Calculator</title>
+</head>
+<body>
+
+<dev class="main">
+    <h2>IP Calculator</h2>
+    <form method = "POST" action="">
+        <dev class="input_form">
+            {% if not randomip %}
+            <input type="text" name="ipaddress" value="{% if ipaddress %}{{ipaddress}}{% else %}192.168.20.20/22{% endif %}" required placeholder="np. 192.168.0.1/22" pattern="^([01]?[0-9]{1,2}|25[0-5]{1}|2[0-4]{1}[0-9]{1})\.([01]?[0-9]{1,2}|25[0-5]{1}|2[0-4]{1}[0-9]{1})\.([01]?[0-9]{1,2}|25[0-5]{1}|2[0-4]{1}[0-9]{1})\.([01]?[0-9]{1,2}|25[0-5]{1}|2[0-4]{1}[0-9]{1})/([12]?[0-9]{1}|3[012]{1})$">
+            {% else %}
+            <input type="text" name="ipaddress" value="{{randomip}}" placeholder="np. 192.168.0.1/22">
+            {% endif %}
+            <input type="submit" name="submit_button" value="Random">
+            <table>
+                <tr>
+                    <td>IP address</td>
+                    <td>{{ipaddress}}</td>
+                </tr>
+                <tr>
+                    <td>Subnet address</td>
+                    <td>{{subnet}}</td>
+                </tr>
+                <tr>
+                    <td>Subnet mask</td>
+                    <td>{{mask}}</td>
+                </tr>
+                <tr>
+                    <td>Hosts number</td>
+                    <td>{{hosts}}</td>
+                </tr>
+            </table>
+            <input type="submit" name="submit_button" value="Calculate">
+
+        </dev>
+    </form>
+
+</dev>
+
+
+</body>
+</html>
