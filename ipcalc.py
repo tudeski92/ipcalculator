@@ -12,6 +12,7 @@ logging.basicConfig(format="%(asctime)s - %(message)s", level=logging.INFO)
 logger = logging.getLogger('root')
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'gshfkjgh1kj2hkj4hkj'
+dogs = ['dog-1.jpg', 'dog-2.jpg', 'dog-3.jpg', 'dog-4.jpg']
 
 
 def dec_to_bin(decimal):
@@ -145,25 +146,52 @@ def random_ip_address():
     return ip_address
 
 
-@app.route("/", methods = ['POST', 'GET'])
-def index():
-    dogs = ['dog-1.jpg', 'dog-2.jpg', 'dog-3.jpg', 'dog-4.jpg']
+@app.route("/", methods=['POST', 'GET'])
+def index(template_name="ipcalc.html"):
     shuffle(dogs)
     randomip = random_ip_address()
     if request.method == 'POST':
         if request.form['submit_button'] == 'Random':
             shuffle(dogs)
-            return render_template("ipcalc.html", randomip=randomip, dogs=dogs)
+            return render_template(f"{template_name}", randomip=randomip, dogs=dogs, templatename=template_name)
         elif request.form['submit_button'] == 'Calculate':
             shuffle(dogs)
             ipaddress = request.form['ipaddress']
             subnet, mask, broadcast, hosts, bin_subnet, bin_mask, bin_ip, bin_broadcast, mask_num = \
                 calculate_subnet_broadcast_and_hosts(str(ipaddress))
-            return render_template("ipcalc.html", ipaddress=ipaddress, subnet=subnet, mask=mask, broadcast=broadcast,
+            return render_template(f"{template_name}", ipaddress=ipaddress, subnet=subnet, mask=mask, broadcast=broadcast,
                                    hosts=hosts, dogs=dogs, binsubnet=bin_subnet, binmask=bin_mask,
-                                   binip=bin_ip, binbroadcast=bin_broadcast, masknum=mask_num)
+                                   binip=bin_ip, binbroadcast=bin_broadcast, masknum=mask_num, templatename=template_name)
+    return render_template(f"{template_name}", dogs=dogs, templatename=template_name)
 
-    return render_template("ipcalc.html", dogs=dogs)
+@app.route("/learning", methods=["POST", "GET"])
+def learning(template_name="learning.html"):
+    shuffle(dogs)
+    randomip = random_ip_address()
+    if request.method == 'POST':
+        if request.form['submit_button'] == 'Random':
+            shuffle(dogs)
+            return render_template(f"{template_name}", randomip=randomip, dogs=dogs, templatename=template_name)
+        elif request.form['submit_button'] == 'Calculate':
+            shuffle(dogs)
+            ipaddress = request.form['ipaddress']
+            subnet, mask, broadcast, hosts, bin_subnet, bin_mask, bin_ip, bin_broadcast, mask_num = \
+                calculate_subnet_broadcast_and_hosts(str(ipaddress))
+            calculated = {"subnet": subnet, "mask": mask, "broadcast": broadcast, "hosts": str(hosts)}
+            inserted_values = {"subnet": request.form['subnetcheck'], "mask": request.form['maskcheck'],
+                               "broadcast": request.form['broadcheck'], "hosts": request.form['hostcheck']}
+            subnet_verification = "OK" if inserted_values["subnet"] == calculated["subnet"] else "NOK"
+            mask_verification = "OK" if inserted_values['mask'] == calculated["mask"] else "NOK"
+            broadcast_verification = "OK" if inserted_values["broadcast"] == calculated["broadcast"] else "NOK"
+            host_verification = "OK" if inserted_values["hosts"] == calculated["hosts"] else "NOK"
+            return render_template(f"{template_name}", ipaddress=ipaddress, subnet=subnet, mask=mask,
+                                   broadcast=broadcast,
+                                   hosts=hosts, dogs=dogs, binsubnet=bin_subnet, binmask=bin_mask,
+                                   binip=bin_ip, binbroadcast=bin_broadcast, masknum=mask_num,
+                                   subnetverification=subnet_verification, maskverification=mask_verification,
+                                   broadcastverification=broadcast_verification, hostverification=host_verification,
+                                   inserted=inserted_values, templatename=template_name)
+    return render_template(f"{template_name}", dogs=dogs, templatename=template_name)
 
 
 if __name__ == "__main__":

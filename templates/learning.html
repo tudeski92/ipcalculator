@@ -1,0 +1,42 @@
+{% extends "ipcalc.html" %}
+{% block learning %}
+<th>Insert Values</th>
+{% endblock learning %}
+{% block subnetcheck %}
+{% if not inserted %}
+<td><input type="text" placeholder="Subnet" name="subnetcheck" required></td>
+{% else %}
+<td><input type="text" placeholder="Subnet" name="subnetcheck" required value="{{inserted['subnet']}}"></td>
+{% endif %}
+
+{% endblock subnetcheck %}
+
+
+{% block maskcheck %}
+{% if not inserted %}
+<td><input type="text" placeholder="Subnet mask" name="maskcheck" required></td>
+{% else %}
+<td><input type="text" placeholder="Subnet mask" name="maskcheck" required value="{{inserted['mask']}}"></td>
+{% endif %}
+{% endblock maskcheck %}
+
+{% block broadcastcheck %}
+{% if not inserted %}
+<td><input type="text" placeholder="Broadcast" name="broadcheck" required></td>
+{% else %}
+<td><input type="text" placeholder="Broadcast" name="broadcheck" required value="{{inserted['broadcast']}}"></td>
+{% endif %}
+
+{% endblock broadcastcheck %}
+
+{% block hostcheck %}
+{% if not inserted %}
+<td><input type="text" placeholder="Host number" name="hostcheck" required></td>
+{% else %}
+<td><input type="text" placeholder="Host number" name="hostcheck" required value="{{inserted['hosts']}}"></td>
+
+{% endif %}
+
+{% endblock hostcheck %}
+
+

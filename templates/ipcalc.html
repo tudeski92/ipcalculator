@@ -9,7 +9,7 @@
         padding: 5px;
         }
 
-        
+
         table {
         margin: 5px;
         margin-left: 0px;
@@ -51,6 +51,58 @@
         font-weight: bold;
         }
 
+        #subnetcheck {
+        {% if subnetverification == "OK" %}
+        color: green;
+        {% elif subnetverification == "NOK" %}
+        color: red;
+        {% else %}
+        color: black;
+        {% endif %}
+        }
+
+        #maskcheck {
+        {% if maskverification == "OK" %}
+        color: green;
+        {% elif maskverification == "NOK" %}
+        color: red;
+        {% else %}
+        color: black;
+        {% endif %}
+        }
+
+        #broadcastcheck {
+        {% if broadcastverification == "OK" %}
+        color: green;
+        {% elif broadcastverification == "NOK" %}
+        color: red;
+        {% else %}
+        color: black;
+        {% endif %}
+        }
+
+        #hostcheck {
+        {% if hostverification == "OK" %}
+        color: green;
+        {% elif hostverification == "NOK" %}
+        color: red;
+        {% else %}
+        color: black;
+        {% endif %}
+        }
+
+        a {
+       text-decoration: none;
+       color: black;
+       font-family: Verdana;
+       font-size: 15px;
+       }
+
+       a:hover {
+       color: aquamarine;
+       }
+
+
 
 
     </style>
@@ -67,39 +119,50 @@
     <form method = "POST" action="">
         <dev class="input_form">
             {% if not randomip %}
-            <input type="text" name="ipaddress" value="{% if ipaddress %}{{ipaddress}}{% else %}192.168.20.20/22{% endif %}" required placeholder="np. 192.168.0.1/22" pattern="^([01]?[0-9]{1,2}|25[0-5]{1}|2[0-4]{1}[0-9]{1})\.([01]?[0-9]{1,2}|25[0-5]{1}|2[0-4]{1}[0-9]{1})\.([01]?[0-9]{1,2}|25[0-5]{1}|2[0-4]{1}[0-9]{1})\.([01]?[0-9]{1,2}|25[0-5]{1}|2[0-4]{1}[0-9]{1})/([12]?[0-9]{1}|3[012]{1})$">
+            <input type="text" name="ipaddress" value="{% if ipaddress %}{{ipaddress}}{% else %}192.168.20.20/22{% endif %}" required placeholder="Insert IP address"
+                   pattern="^([01]?[0-9]{1,2}|25[0-5]{1}|2[0-4]{1}[0-9]{1})\.([01]?[0-9]{1,2}|25[0-5]{1}|2[0-4]{1}[0-9]{1})\.([01]?[0-9]{1,2}|25[0-5]{1}|2[0-4]{1}[0-9]{1})\.([01]?[0-9]{1,2}|25[0-5]{1}|2[0-4]{1}[0-9]{1})/([12]?[0-9]{1}|3[012]{1})$">
             {% else %}
-            <input type="text" name="ipaddress" value="{{randomip}}" placeholder="np. 192.168.0.1/22">
+            <input type="text" name="ipaddress" value="{{randomip}}" placeholder="Insert IP address">
             {% endif %}
             <input type="submit" name="submit_button" value="Random">
             <table>
                 <tr>
+                    {% if templatename == "learning.html" %}
                     <td></td>
+                    {% block learning %}{% endblock learning %}
+                    {% endif %}
                     <th>Decimal</th>
                     <th>Binary</th>
                 </tr>
                 <tr>
-                    <td class="name">IP address:</td>
+                    <td class="name" >IP address:</td>
+                    {% if templatename == "learning.html" %}
+                    <td></td>
+                    {% endif %}
                     <td>{{ipaddress}}</td>
                     <td class="binary">{{binip}}</td>
                 </tr>
                 <tr>
-                    <td class="name">Subnet address:</td>
+                    <td class="name" id="subnetcheck">Subnet address:</td>
+                    {% block subnetcheck %}{% endblock subnetcheck %}
                     <td>{{subnet}}</td>
                     <td class="binary">{{binsubnet}}</td>
                 </tr>
                 <tr>
-                    <td class="name">Subnet mask:</td>
+                    <td class="name" id="maskcheck">Subnet mask:</td>
+                    {% block maskcheck %}{% endblock maskcheck %}
                     <td>{{mask}}</td>
                     <td class="binary">{{binmask}}</td>
                 </tr>
                 <tr>
-                    <td class="name">Broadcast address:</td>
+                    <td class="name" id="broadcastcheck">Broadcast address:</td>
+                    {% block broadcastcheck %}{% endblock broadcastcheck %}
                     <td>{{broadcast}}</td>
                     <td class="binary">{{binbroadcast}}</td>
                 </tr>
                 <tr>
-                    <td class="name">Hosts number:</td>
+                    <td class="name" id="hostcheck">Hosts number:</td>
+                    {% block hostcheck %}{% endblock hostcheck %}
                     {% if masknum and masknum != '32'%}
                     <td>2<sup>32 - {{masknum }}</sup> - 2 = {{hosts}}</td>
                     {% elif masknum and masknum == '32' %}
@@ -108,6 +171,12 @@
                 </tr>
             </table>
             <input type="submit" name="submit_button" value="Calculate">
+            {% if templatename == "ipcalc.html" %}
+            <a href="{{url_for('learning')}}">Learning</a>
+            {% elif templatename == "learning.html" %}
+            <a href="{{url_for('index')}}">Calculator</a>
+            {% endif %}
+
 
         </dev>
     </form>
