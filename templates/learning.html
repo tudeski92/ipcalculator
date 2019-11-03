@@ -4,9 +4,9 @@
 {% endblock learning %}
 {% block subnetcheck %}
 {% if not inserted %}
-<td><input type="text" placeholder="Subnet" name="subnetcheck" required></td>
+<td><input type="text" placeholder="Subnet" name="subnetcheck" ></td>
 {% else %}
-<td><input type="text" placeholder="Subnet" name="subnetcheck" required value="{{inserted['subnet']}}"></td>
+<td><input type="text" placeholder="Subnet" name="subnetcheck"  value="{{inserted['subnet']}}"></td>
 {% endif %}
 
 {% endblock subnetcheck %}
@@ -14,26 +14,26 @@
 
 {% block maskcheck %}
 {% if not inserted %}
-<td><input type="text" placeholder="Subnet mask" name="maskcheck" required></td>
+<td><input type="text" placeholder="Subnet mask" name="maskcheck" ></td>
 {% else %}
-<td><input type="text" placeholder="Subnet mask" name="maskcheck" required value="{{inserted['mask']}}"></td>
+<td><input type="text" placeholder="Subnet mask" name="maskcheck"  value="{{inserted['mask']}}"></td>
 {% endif %}
 {% endblock maskcheck %}
 
 {% block broadcastcheck %}
 {% if not inserted %}
-<td><input type="text" placeholder="Broadcast" name="broadcheck" required></td>
+<td><input type="text" placeholder="Broadcast" name="broadcheck" ></td>
 {% else %}
-<td><input type="text" placeholder="Broadcast" name="broadcheck" required value="{{inserted['broadcast']}}"></td>
+<td><input type="text" placeholder="Broadcast" name="broadcheck"  value="{{inserted['broadcast']}}"></td>
 {% endif %}
 
 {% endblock broadcastcheck %}
 
 {% block hostcheck %}
 {% if not inserted %}
-<td><input type="text" placeholder="Host number" name="hostcheck" required></td>
+<td><input type="text" placeholder="Host number" name="hostcheck" ></td>
 {% else %}
-<td><input type="text" placeholder="Host number" name="hostcheck" required value="{{inserted['hosts']}}"></td>
+<td><input type="text" placeholder="Host number" name="hostcheck" value="{{inserted['hosts']}}"></td>
 
 {% endif %}
 
