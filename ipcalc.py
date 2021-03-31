@@ -7,7 +7,7 @@ from random import randint, shuffle
 import logging
 import numpy
 
-
+#another unnecessary comment
 logging.basicConfig(format="%(asctime)s - %(message)s", level=logging.INFO)
 logger = logging.getLogger('root')
 app = Flask(__name__)
