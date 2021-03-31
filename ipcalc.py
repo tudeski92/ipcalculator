@@ -193,6 +193,6 @@ def learning(template_name="learning.html"):
                                    inserted=inserted_values, templatename=template_name)
     return render_template(f"{template_name}", dogs=dogs, templatename=template_name)
 
-#this is test comment
+#this is test comment, working in branch hehe
 if __name__ == "__main__":
     app.run(debug=True)
