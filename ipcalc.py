@@ -7,7 +7,7 @@ from random import randint, shuffle
 import logging
 import numpy
 
-#another necessary comment huehue
+
 logging.basicConfig(format="%(asctime)s - %(message)s", level=logging.INFO)
 logger = logging.getLogger('root')
 app = Flask(__name__)
@@ -15,6 +15,7 @@ app.config['SECRET_KEY'] = 'gshfkjgh1kj2hkj4hkj'
 dogs = ['dog-1.jpg', 'dog-2.jpg', 'dog-3.jpg', 'dog-4.jpg']
 
 
+#commenttttttttttttttt
 def dec_to_bin(decimal):
     mylist = []
     while decimal != 1:
