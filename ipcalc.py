@@ -15,8 +15,7 @@ app.config['SECRET_KEY'] = 'gshfkjgh1kj2hkj4hkj'
 dogs = ['dog-1.jpg', 'dog-2.jpg', 'dog-3.jpg', 'dog-4.jpg']
 
 
-#commenttttttttttttttt
-
+#huehuehue
 #another commend
 def dec_to_bin(decimal):
     mylist = []
