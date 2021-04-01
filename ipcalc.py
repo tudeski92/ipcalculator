@@ -16,6 +16,7 @@ dogs = ['dog-1.jpg', 'dog-2.jpg', 'dog-3.jpg', 'dog-4.jpg']
 
 
 #huehuehue
+#ELOOOOOOOOOOOOOO
 #another commend
 def dec_to_bin(decimal):
     mylist = []
